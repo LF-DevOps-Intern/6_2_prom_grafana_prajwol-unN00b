@@ -15,7 +15,7 @@ Tasks:
 We need to create a `yml config` with a bcrypt-hashed password like this:
 ```YAML
 basic_auth_users:
-    admin: $2b$12$hNf2lSsxfm0.i4a.1kVpSOVyBCfIB51VRjgBUyv6kdnyTlgWj81Ay
+    admin: [REDACTED_BCRYPT_ENCRYPTED_PASSWORD_HASH]
 ```
 
 Now we can use the new yml config as a web config for Prometheus.
@@ -50,11 +50,14 @@ dimm3r@lite:~$ prometheus-node-exporter
 ```
 
 ![image](https://user-images.githubusercontent.com/23631617/144735147-197e3b7b-76fb-4561-a73a-9996cd842ea3.png)
+![image](https://user-images.githubusercontent.com/23631617/144736907-fab8c9b6-430b-4159-b662-3dd123e3f04b.png)
 
 ##### Share screenshot from status->targets to show the available nodes
 ![image](https://user-images.githubusercontent.com/23631617/144735676-a70b4777-8c79-4aea-b8bb-a177ab20b276.png)
 
 ##### Share configuration of node exporter & prometheus server
+
+* Prometheus Server Config
 
 ```YAML 
 # prometheus.yml
@@ -74,11 +77,21 @@ scrape_configs:
       - targets: ["localhost:9090"]
     basic_auth:
         username: assignment
-        password: **********
+        password: [REDACTED_PLAINTEXT_PASSWORD]
 
   - job_name: "node_exporter"
     static_configs:
       - targets: ["192.168.122.116:9100"]
+    basic_auth:
+        username: node0
+        password: [REDACTED_PLAINTEXT_PASSWORD]
+```
+
+* Node Exporter Config
+
+```YAML
+basic_auth_users: 
+  node0: [REDACTED_BCRYPT_ENCRYPTED_PASSWORD_HASH]
 ```
 
 3. Install grafana server on same server as prometheus 
@@ -87,38 +100,8 @@ scrape_configs:
 - Import & apply dashboard for node_exporter
 - Screenshot of dashboard of nodes with live metrics shown.
 
-Sample Server Config:
-global:
-  scrape_interval: 10s
-  scrape_timeout: 6s
+##### Install grafana server on same server as prometheus 
+![image](https://user-images.githubusercontent.com/23631617/144736310-05e69585-dd9e-41b4-a5a5-d9665a8c08a2.png)
+![image](https://user-images.githubusercontent.com/23631617/144736338-6ed37b32-351b-475c-b148-1c0533f311a2.png)
 
-scrape_configs:
-  - job_name: 'prometheus'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['10.10.4.105:9090']
-
-  - job_name: 'node'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['10.10.5.218:9100','10.10.4.105:9100']
-
-  - job_name: 'docker'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['10.10.5.218:9323']
-
-  - job_name: 'mysql'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['10.10.5.218:9104']
-
-rule_files:
-  - "prometheus-rules.yml"
-
-alerting:
-  alertmanagers:
-  - static_configs:
-    - targets: ['localhost:9093']
-
-
+##### Add prometheus data source to grafana, should be connected through basic auth
