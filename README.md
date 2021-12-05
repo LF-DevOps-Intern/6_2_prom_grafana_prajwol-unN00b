@@ -105,3 +105,14 @@ basic_auth_users:
 ![image](https://user-images.githubusercontent.com/23631617/144736338-6ed37b32-351b-475c-b148-1c0533f311a2.png)
 
 ##### Add prometheus data source to grafana, should be connected through basic auth
+![image](https://user-images.githubusercontent.com/23631617/144737155-ef3d9a3d-af21-46f3-8ee4-ae3f5c328826.png)
+
+##### Import & apply dashboard for node_exporter
+
+* Using Dashboard from https://grafana.com/grafana/dashboards/1860
+
+![image](https://user-images.githubusercontent.com/23631617/144737340-7ba96f36-618c-46d9-80ef-0753551e32e1.png)
+
+##### Screenshot of dashboard of nodes with live metrics shown
+
+![image](https://user-images.githubusercontent.com/23631617/144737377-1658895f-c740-4ed4-8cde-05e07c358a7e.png)
