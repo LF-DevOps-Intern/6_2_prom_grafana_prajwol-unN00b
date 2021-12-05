@@ -107,6 +107,11 @@ basic_auth_users:
 ##### Add prometheus data source to grafana, should be connected through basic auth
 ![image](https://user-images.githubusercontent.com/23631617/144737155-ef3d9a3d-af21-46f3-8ee4-ae3f5c328826.png)
 
+##### Screenshot of working data source config
+![image](https://user-images.githubusercontent.com/23631617/144737494-4e588eda-10bd-4271-9d97-923f82297c95.png)
+![image](https://user-images.githubusercontent.com/23631617/144737521-19abdece-0253-453e-aa8c-692ff7b94b86.png)
+
+
 ##### Import & apply dashboard for node_exporter
 
 * Using Dashboard from https://grafana.com/grafana/dashboards/1860
